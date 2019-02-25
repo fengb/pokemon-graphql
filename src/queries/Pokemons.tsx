@@ -16,6 +16,7 @@ const query = gql`
   }
 `;
 
-export default function Pokemons(props: PokemonsQueryProps) {
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+export default function (props: Omit<PokemonsQueryProps, "query">) {
   return <PokemonsQuery query={query} {...props} />;
 }
