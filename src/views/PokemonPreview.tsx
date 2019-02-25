@@ -6,6 +6,7 @@ import {
   Pokemons_pokemons as Pokemon
 } from "./__generated__/Pokemons";
 import { makeQuery } from "../helpers/apollo";
+import { Link } from "react-router-dom";
 
 const Query = makeQuery<Pokemons, PokemonsVariables>(
   gql`
@@ -22,12 +23,14 @@ const Query = makeQuery<Pokemons, PokemonsVariables>(
 
 function Preview({ pokemon }: { pokemon: Pokemon }) {
   return (
-    <figure>
-      <img src={pokemon.image || ""} />
-      <caption>
-        {pokemon.number} &mdash; {pokemon.name}
-      </caption>
-    </figure>
+    <Link to={`/pokemon/${pokemon.id}`}>
+      <figure>
+        <img src={pokemon.image || ""} />
+        <caption>
+          {pokemon.number} &mdash; {pokemon.name}
+        </caption>
+      </figure>
+    </Link>
   );
 }
 
