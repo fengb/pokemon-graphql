@@ -16,4 +16,8 @@ export const Query = makeQuery<T.Preview, T.PreviewVariables>(
   `
 );
 
+export function pad(num: number) {
+  return Math.ceil(num / 100) * 100;
+}
+
 export default Query;

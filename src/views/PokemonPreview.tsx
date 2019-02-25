@@ -17,7 +17,7 @@ function Render({ pokemon }: { pokemon: Preview.Pokemon }) {
 
 export default function PokemonPreview() {
   return (
-    <Preview.Query variables={{ first: 10 }}>
+    <Preview.Query variables={{ first: Preview.pad(10) }}>
       {({ data }) => {
         if (data) {
           return (data.pokemons || []).map(

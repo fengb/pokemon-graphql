@@ -48,7 +48,7 @@ export default function PokemonDetail(props: {
 }) {
   const number = props.match.params.number;
   return (
-    <Preview.Query variables={{ first: Number(number) }}>
+    <Preview.Query variables={{ first: Preview.pad(+number) }}>
       {({ data }) => {
         if (!data || !data.pokemons) {
           return null;
