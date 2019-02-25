@@ -5,10 +5,9 @@ import {
   PokemonsVariables,
   Pokemons_pokemons as Pokemon
 } from "./__generated__/Pokemons";
-import { Query, makeQuery } from "../helpers/apollo";
+import { makeQuery } from "../helpers/apollo";
 
-const PreviewQuery = makeQuery(
-  class PokemonsQuery extends Query<Pokemons, PokemonsVariables> {},
+const Query = makeQuery<Pokemons, PokemonsVariables>(
   gql`
     query Pokemons($first: Int!) {
       pokemons(first: $first) {
@@ -34,7 +33,7 @@ function Preview({ pokemon }: { pokemon: Pokemon }) {
 
 export default function PokemonPreview() {
   return (
-    <PreviewQuery variables={{ first: 10 }}>
+    <Query variables={{ first: 10 }}>
       {({ data }) => {
         if (data) {
           return (data.pokemons || []).map(
@@ -42,6 +41,6 @@ export default function PokemonPreview() {
           );
         }
       }}
-    </PreviewQuery>
+    </Query>
   );
 }
