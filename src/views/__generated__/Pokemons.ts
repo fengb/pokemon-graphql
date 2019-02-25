@@ -20,6 +20,7 @@ export interface Pokemons_pokemons {
    * The name of this Pokémon
    */
   name: string | null;
+  image: string | null;
 }
 
 export interface Pokemons {
