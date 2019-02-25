@@ -11,7 +11,7 @@ export function App() {
       <main>
         <Link to="/">Pokemon!</Link>
         <Switch>
-          <Route path="/pokemon/:id" component={PokemonDetail} />
+          <Route path="/pokemon/:number" component={PokemonDetail} />
           <Route path="/" component={PokemonPreview} />
         </Switch>
       </main>

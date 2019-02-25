@@ -4,7 +4,7 @@ import * as Preview from "../queries/Preview";
 
 function Render({ pokemon }: { pokemon: Preview.Pokemon }) {
   return (
-    <Link to={`/pokemon/${pokemon.id}`}>
+    <Link to={`/pokemon/${pokemon.number}`}>
       <figure>
         <img src={pokemon.image || ""} />
         <figcaption>
