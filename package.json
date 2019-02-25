@@ -23,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "apollo-download": "yarn apollo schema:download",
+    "apollo-generate": "yarn apollo codegen:generate --target=typescript"
   },
   "eslintConfig": {
     "extends": "react-app"
