@@ -1,9 +1,12 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import * as React from "react";
 import PokemonPreview from "./views/PokemonPreview";
 import PokemonDetail from "./views/PokemonDetail";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { cssRule } from "typestyle";
+
+cssRule("img", {
+  objectFit: "contain"
+});
 
 export function App() {
   return (

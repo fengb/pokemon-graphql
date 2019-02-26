@@ -1,4 +1,11 @@
 import * as React from "react";
+import { style } from "typestyle";
+import * as css from "../helpers/css";
+
+const className = style({
+  width: "200px",
+  height: "200px"
+});
 
 type Props = {
   pokemon: {
@@ -12,12 +19,12 @@ type Props = {
 
 function PokemonCard({ pokemon }: Props) {
   return (
-    <figure>
-      <figcaption>
+    <figure className={`${className} ${css.displayFlex({ column: true })}`}>
+      <figcaption className={css.displayFlex({ apart: true })}>
         <span>{pokemon.number}</span>
         <span>{pokemon.name}</span>
       </figcaption>
-      <img src={pokemon.image || ""} />
+      <img className={css.flexGrow()} src={pokemon.image || ""} />
     </figure>
   );
 }
