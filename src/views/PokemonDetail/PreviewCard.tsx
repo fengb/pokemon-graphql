@@ -4,10 +4,21 @@ import * as css from "../../css";
 
 const className = style({
   position: "relative",
+  background: "white",
+});
+
+const imageClass = style({
+  display: "block",
+  transition: "0.2s ease all",
   width: "96px",
   height: "96px",
-  background: "white",
-  border: "1px solid black"
+  border: "1px solid black",
+  filter: "brightness(0.8) grayscale(1)",
+  $nest: {
+    "&:hover, &.active": {
+      filter: "none"
+    }
+  }
 });
 
 const numberClass = style({
@@ -22,7 +33,10 @@ const numberClass = style({
 function PreviewCard(props: { num: string; imgUrl: string; active: boolean }) {
   return (
     <figure className={className}>
-      <img src={props.imgUrl} />
+      <img
+        className={`${imageClass} ${props.active && "active"}`}
+        src={props.imgUrl}
+      />
       <figcaption className={numberClass}>{props.num}</figcaption>
     </figure>
   );

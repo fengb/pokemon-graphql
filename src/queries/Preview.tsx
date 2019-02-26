@@ -27,11 +27,6 @@ export const useQuery = makeQuery<T.Preview, T.PreviewVariables>(
                   front
                 }
               }
-              silhouette {
-                male {
-                  front
-                }
-              }
             }
           }
         }

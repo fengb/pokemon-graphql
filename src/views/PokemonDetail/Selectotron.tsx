@@ -9,6 +9,13 @@ const className = style({
   display: "flex"
 });
 
+const selectorClass = style({
+  position: "absolute",
+  pointerEvents: "none",
+  boxShadow: "inset 0 0 0 3px black",
+  visibility: "hidden"
+});
+
 export default function Selectotron(props: {
   selected: number;
   children: React.ReactElement[];
@@ -19,8 +26,8 @@ export default function Selectotron(props: {
     const el = selectedChild.current;
     if (el != null) {
       setSelectorStyle({
-        position: "absolute",
-        boxShadow: "inset 0 0 0 3px black",
+        visibility: "visible",
+        transition: "0.4s ease-out left",
         left: `${el.offsetLeft}px`,
         width: `${el.clientWidth}px`,
         height: `${el.clientHeight}px`
@@ -40,7 +47,7 @@ export default function Selectotron(props: {
           {child}
         </div>
       ))}
-      <div style={selectorStyle} />
+      <div className={selectorClass} style={selectorStyle} />
     </div>
   );
 }

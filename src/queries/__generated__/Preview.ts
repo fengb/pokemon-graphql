@@ -36,20 +36,9 @@ export interface Preview_Pokemon_edges_node_sprites_normal {
   male: Preview_Pokemon_edges_node_sprites_normal_male | null;
 }
 
-export interface Preview_Pokemon_edges_node_sprites_silhouette_male {
-  __typename: "PokemonSpriteOrientation";
-  front: string | null;
-}
-
-export interface Preview_Pokemon_edges_node_sprites_silhouette {
-  __typename: "PokemonSpriteGender";
-  male: Preview_Pokemon_edges_node_sprites_silhouette_male | null;
-}
-
 export interface Preview_Pokemon_edges_node_sprites {
   __typename: "PokemonSprite";
   normal: Preview_Pokemon_edges_node_sprites_normal | null;
-  silhouette: Preview_Pokemon_edges_node_sprites_silhouette | null;
 }
 
 export interface Preview_Pokemon_edges_node {
