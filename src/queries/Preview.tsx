@@ -7,12 +7,34 @@ export function pad(num: number) {
 
 export const useQuery = makeQuery<T.Preview, T.PreviewVariables>(
   gql`
-    query Preview($first: Int!) {
-      pokemons(first: $first) {
-        id
-        number
-        name
-        image
+    query Preview($first: Int, $after: String) {
+      Pokemon(first: $first, after: $after) {
+        totalCount
+        pageInfo {
+          hasPreviousPage
+          hasNextPage
+          startCursor
+          endCursor
+        }
+        edges {
+          cursor
+          node {
+            id
+            identifier
+            sprites {
+              normal {
+                male {
+                  front
+                }
+              }
+              silhouette {
+                male {
+                  front
+                }
+              }
+            }
+          }
+        }
       }
     }
   `

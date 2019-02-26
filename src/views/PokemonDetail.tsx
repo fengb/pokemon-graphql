@@ -1,46 +1,27 @@
 import React from "react";
-import * as T from "./__generated__/PokemonDetail";
+// import * as T from "./__generated__/PokemonDetail";
 import { Link } from "react-router-dom";
 import { match } from "react-router";
-import { gql, makeQuery } from "../helpers/apollo";
+// import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../queries/Preview";
 import PokemonCard from "../components/PokemonCard";
 import { compact, findIndex, range } from "lodash";
 import Showcase from "../components/Showcase";
 
-const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
-  query PokemonDetail($id: String!) {
-    pokemon(id: $id) {
-      id
-      number
-      name
-      classification
-      types
-      resistant
-      weaknesses
-      image
-    }
-  }
-`);
-
-export function findGroup<T>(
-  array: T[],
-  distance: number,
-  predicate: any
-): (T | null)[] | null {
-  const i = findIndex(array, predicate);
-  if (i == null) {
-    return null;
-  }
-
-  const center = findIndex(array, predicate);
-  if (center == -1) {
-    return null;
-  }
-
-  const indexes = range(center - distance, center + distance + 1);
-  return indexes.map(i => array[i]);
-}
+// const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
+//   query PokemonDetail($id: String!) {
+//     pokemon(id: $id) {
+//       id
+//       number
+//       name
+//       classification
+//       types
+//       resistant
+//       weaknesses
+//       image
+//     }
+//   }
+// `);
 
 export default function PokemonDetail(props: {
   match: match<{ number: string }>;
@@ -49,11 +30,11 @@ export default function PokemonDetail(props: {
   const { data, error, loading } = Preview.useQuery({
     variables: { first: Preview.pad(+number + 1) }
   });
-  if (!data || !data.pokemons) {
+  if (!data || !data.Pokemon) {
     return null;
   }
 
-  const pokemons = findGroup(compact(data.pokemons), 4, { number });
+  const pokemons = compact(data.Pokemon.edges);
   if (pokemons == null) {
     return null;
   }
@@ -61,9 +42,12 @@ export default function PokemonDetail(props: {
   return (
     <Showcase>
       {pokemons.map((pokemon, i) =>
-        pokemon ? (
-          <Link key={pokemon.id} to={`/pokemon/${pokemon.number}`}>
-            <PokemonCard pokemon={pokemon} />
+        pokemon && pokemon.node ? (
+          <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
+            <PokemonCard
+              num={pokemon.node.id!}
+              imgUrl={pokemon.node.sprites!.normal!.male!.front!}
+            />
           </Link>
         ) : (
           <PokemonCard.Placeholder key={i} />

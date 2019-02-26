@@ -9,24 +9,11 @@ const className = style({
   padding: "10px 20px"
 });
 
-type Props = {
-  pokemon: {
-    id: string;
-    // These nulls come from GraphQL... grumble grumble
-    image: string | null;
-    number: string | null;
-    name: string | null;
-  };
-};
-
-function PokemonCard({ pokemon }: Props) {
+function PokemonCard(props: { num: string; imgUrl: string }) {
   return (
     <figure className={`${className} ${css.displayFlex({ column: true })}`}>
-      <figcaption className={css.displayFlex({ apart: true })}>
-        <span>{pokemon.number}</span>
-        <span>{pokemon.name}</span>
-      </figcaption>
-      <img className={css.flexGrow()} src={pokemon.image || ""} />
+      <figcaption>{props.num}</figcaption>
+      <img className={css.flexGrow()} src={props.imgUrl} />
     </figure>
   );
 }

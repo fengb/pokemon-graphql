@@ -8,7 +8,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo-hooks";
 
 const client = new ApolloClient({
-  uri: "https://graphql-pokemon.now.sh/"
+  uri: "https://pokeql.com/v1"
 });
 
 ReactDOM.render(
