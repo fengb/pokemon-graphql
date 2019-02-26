@@ -7,6 +7,7 @@ import * as Preview from "../../queries/Preview";
 import PreviewCard from "./PreviewCard";
 import { compact, findIndex, range } from "lodash";
 import Selectotron from "./Selectotron";
+import Stats from "./Stats";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
@@ -42,20 +43,23 @@ export default function PokemonDetail(props: {
   const selected = +number - 1;
 
   return (
-    <Selectotron selected={selected}>
-      {pokemons.map((pokemon, i) =>
-        pokemon && pokemon.node ? (
-          <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
-            <PreviewCard
-              num={pokemon.node.id!}
-              active={i == selected}
-              imgUrl={pokemon.node.sprites!.normal!.male!.front!}
-            />
-          </Link>
-        ) : (
-          <PreviewCard.Placeholder key={i} />
-        )
-      )}
-    </Selectotron>
+    <div>
+      <Selectotron selected={selected}>
+        {pokemons.map((pokemon, i) =>
+          pokemon && pokemon.node ? (
+            <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
+              <PreviewCard
+                num={pokemon.node.id!}
+                active={i == selected}
+                imgUrl={pokemon.node.sprites!.normal!.male!.front!}
+              />
+            </Link>
+          ) : (
+            <PreviewCard.Placeholder key={i} />
+          )
+        )}
+      </Selectotron>
+      <Stats identifier={pokemons[selected].node!.identifier!} />
+    </div>
   );
 }

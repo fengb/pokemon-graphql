@@ -5,6 +5,7 @@
   "dependencies": {
     "apollo-boost": "^0.1.28",
     "apollo-client": "^2.4.13",
+    "csx": "^9.0.0",
     "graphql": "^14.1.1",
     "lodash": "^4.17.11",
     "react": "^16.8.3",
