@@ -3,10 +3,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { match } from "react-router";
 // import { gql, makeQuery } from "../helpers/apollo";
-import * as Preview from "../queries/Preview";
-import PokemonCard from "../components/PokemonCard";
+import * as Preview from "../../queries/Preview";
+import PokemonCard from "../../components/PokemonCard";
 import { compact, findIndex, range } from "lodash";
-import Selectotron from "../components/Selectotron";
+import Selectotron from "../../components/Selectotron";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
