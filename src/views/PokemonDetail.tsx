@@ -40,7 +40,7 @@ export default function PokemonDetail(props: {
   }
 
   return (
-    <Selectotron>
+    <Selectotron selected={+number - 1}>
       {pokemons.map((pokemon, i) =>
         pokemon && pokemon.node ? (
           <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
