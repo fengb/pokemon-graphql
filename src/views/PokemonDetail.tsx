@@ -6,7 +6,7 @@ import { match } from "react-router";
 import * as Preview from "../queries/Preview";
 import PokemonCard from "../components/PokemonCard";
 import { compact, findIndex, range } from "lodash";
-import Showcase from "../components/Showcase";
+import Selectotron from "../components/Selectotron";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
@@ -40,7 +40,7 @@ export default function PokemonDetail(props: {
   }
 
   return (
-    <Showcase>
+    <Selectotron>
       {pokemons.map((pokemon, i) =>
         pokemon && pokemon.node ? (
           <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
@@ -53,6 +53,6 @@ export default function PokemonDetail(props: {
           <PokemonCard.Placeholder key={i} />
         )
       )}
-    </Showcase>
+    </Selectotron>
   );
 }

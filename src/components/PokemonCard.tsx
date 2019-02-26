@@ -3,8 +3,8 @@ import { style } from "typestyle";
 import * as css from "../helpers/css";
 
 const className = style({
-  width: "200px",
-  height: "200px",
+  width: "96px",
+  height: "110px",
   background: "white",
   padding: "10px 20px"
 });
@@ -12,7 +12,7 @@ const className = style({
 function PokemonCard(props: { num: string; imgUrl: string }) {
   return (
     <figure className={`${className} ${css.displayFlex({ column: true })}`}>
-      <figcaption>{props.num}</figcaption>
+      <figcaption className={css.center()}>{props.num}</figcaption>
       <img className={css.flexGrow()} src={props.imgUrl} />
     </figure>
   );

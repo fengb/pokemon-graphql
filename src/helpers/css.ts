@@ -8,15 +8,16 @@ export function bricks() {
   });
 }
 
-export function displayFlex({
-  inline = false,
-  column = false,
-  apart = false
-} = {}) {
+export function center() {
+  return style({
+    textAlign: "center"
+  });
+}
+
+export function displayFlex({ inline = false, column = false } = {}) {
   return style({
     display: inline ? "inline-flex" : "flex",
-    flexDirection: column ? "column" : "row",
-    justifyContent: apart ? "space-between" : "center"
+    flexDirection: column ? "column" : "row"
   });
 }
 
