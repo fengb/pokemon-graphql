@@ -1,5 +1,6 @@
 import React from "react";
 import * as T from "./__generated__/PokemonDetail";
+import { Link } from "react-router-dom";
 import { match } from "react-router";
 import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../queries/Preview";
@@ -52,7 +53,7 @@ export default function PokemonDetail(props: {
     return null;
   }
 
-  const pokemons = findGroup(compact(data.pokemons), 2, { number });
+  const pokemons = findGroup(compact(data.pokemons), 4, { number });
   if (pokemons == null) {
     return null;
   }
@@ -61,7 +62,9 @@ export default function PokemonDetail(props: {
     <Showcase>
       {pokemons.map((pokemon, i) =>
         pokemon ? (
-          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+          <Link key={pokemon.id} to={`/pokemon/${pokemon.number}`}>
+            <PokemonCard pokemon={pokemon} />
+          </Link>
         ) : (
           <PokemonCard.Placeholder key={i} />
         )

@@ -36,3 +36,9 @@ export function flexFixed(basis = "auto") {
     flexBasis: basis
   });
 }
+
+export function hidden() {
+  return style({
+    visibility: "hidden"
+  });
+}

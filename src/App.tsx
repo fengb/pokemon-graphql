@@ -4,6 +4,10 @@ import PokemonDetail from "./views/PokemonDetail";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { cssRule } from "typestyle";
 
+cssRule("figure", {
+  margin: 0
+});
+
 cssRule("img", {
   objectFit: "contain"
 });

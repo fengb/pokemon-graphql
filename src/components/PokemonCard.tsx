@@ -4,7 +4,9 @@ import * as css from "../helpers/css";
 
 const className = style({
   width: "200px",
-  height: "200px"
+  height: "200px",
+  background: "white",
+  padding: "10px 20px"
 });
 
 type Props = {
@@ -30,7 +32,7 @@ function PokemonCard({ pokemon }: Props) {
 }
 
 PokemonCard.Placeholder = () => {
-  return <figure />;
+  return <figure className={`${className} ${css.hidden()}`} />;
 };
 
 export default PokemonCard;
