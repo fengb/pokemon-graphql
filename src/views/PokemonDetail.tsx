@@ -1,45 +1,45 @@
 import React from "react";
 import * as T from "./__generated__/PokemonDetail";
 import { match } from "react-router";
-import { gql, makeQuery } from "../helpers/apollo";
+import { useQuery } from "react-apollo-hooks";
+import { gql } from "apollo-boost";
 import * as Preview from "../queries/Preview";
 
-export const Query = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(
-  gql`
-    query PokemonDetail($id: String!) {
-      pokemon(id: $id) {
-        id
-        number
-        name
-        classification
-        types
-        resistant
-        weaknesses
-        image
-      }
+const QUERY = gql`
+  query PokemonDetail($id: String!) {
+    pokemon(id: $id) {
+      id
+      number
+      name
+      classification
+      types
+      resistant
+      weaknesses
+      image
     }
-  `
-);
+  }
+`;
 
 function Detail(props: { id: string }) {
-  return (
-    <Query variables={{ id: props.id }}>
-      {({ data }) => {
-        if (!data || !data.pokemon) {
-          return null;
-        }
+  const { data, error, loading } = useQuery<
+    T.PokemonDetail,
+    T.PokemonDetailVariables
+  >(QUERY, {
+    variables: { id: props.id }
+  });
 
-        const pokemon = data.pokemon;
-        return (
-          <figure>
-            <img src={pokemon.image || ""} />
-            <figcaption>
-              {pokemon.number} &mdash; {pokemon.name}
-            </figcaption>
-          </figure>
-        );
-      }}
-    </Query>
+  if (!data || !data.pokemon) {
+    return null;
+  }
+
+  const pokemon = data.pokemon;
+  return (
+    <figure>
+      <img src={pokemon.image || ""} />
+      <figcaption>
+        {pokemon.number} &mdash; {pokemon.name}
+      </figcaption>
+    </figure>
   );
 }
 
