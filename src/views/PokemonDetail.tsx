@@ -1,11 +1,10 @@
 import React from "react";
 import * as T from "./__generated__/PokemonDetail";
 import { match } from "react-router";
-import { useQuery } from "react-apollo-hooks";
-import { gql } from "apollo-boost";
+import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../queries/Preview";
 
-const QUERY = gql`
+const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
   query PokemonDetail($id: String!) {
     pokemon(id: $id) {
       id
@@ -18,13 +17,10 @@ const QUERY = gql`
       image
     }
   }
-`;
+`);
 
 function Detail(props: { id: string }) {
-  const { data, error, loading } = useQuery<
-    T.PokemonDetail,
-    T.PokemonDetailVariables
-  >(QUERY, {
+  const { data, error, loading } = useQuery({
     variables: { id: props.id }
   });
 
