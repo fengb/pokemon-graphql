@@ -1,12 +1,12 @@
 import * as React from "react";
 import { style } from "typestyle";
-import * as css from "../helpers/css";
 
 const className = style({
   position: "relative",
   background: "black",
   maxWidth: "100%",
-  overflowX: "scroll"
+  overflowX: "scroll",
+  display: "flex"
 });
 
 export default function Selectotron(props: {
@@ -31,7 +31,7 @@ export default function Selectotron(props: {
   }, [props.selected, selectedChild.current]);
 
   return (
-    <div className={`${className} ${css.displayFlex()}`}>
+    <div className={className}>
       {props.children.map((child, i) => (
         <div
           key={child.key || i}

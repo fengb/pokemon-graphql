@@ -1,6 +1,6 @@
 import * as React from "react";
 import { style } from "typestyle";
-import * as css from "../helpers/css";
+import * as css from "../css";
 
 const className = style({
   position: "relative",
@@ -17,7 +17,7 @@ const numberClass = style({
   padding: "4px 6px",
   background: "rgba(255, 255, 255, 0.5)",
   boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.5)"
-})
+});
 
 function PokemonCard(props: { num: string; imgUrl: string }) {
   return (
