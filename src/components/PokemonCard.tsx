@@ -10,7 +10,7 @@ type Props = {
   };
 };
 
-export default function PokemonCard({ pokemon }: Props) {
+function PokemonCard({ pokemon }: Props) {
   return (
     <figure>
       <figcaption>
@@ -21,3 +21,9 @@ export default function PokemonCard({ pokemon }: Props) {
     </figure>
   );
 }
+
+PokemonCard.Placeholder = () => {
+  return <figure />;
+};
+
+export default PokemonCard;

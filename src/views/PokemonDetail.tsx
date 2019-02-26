@@ -4,7 +4,8 @@ import { match } from "react-router";
 import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../queries/Preview";
 import PokemonCard from "../components/PokemonCard";
-import { find } from "lodash";
+import { compact, findIndex, range } from "lodash";
+import Showcase from "../components/Showcase";
 
 const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
   query PokemonDetail($id: String!) {
@@ -21,16 +22,23 @@ const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
   }
 `);
 
-function Detail(props: { id: string }) {
-  const { data, error, loading } = useQuery({
-    variables: { id: props.id }
-  });
-
-  if (!data || !data.pokemon) {
+export function findGroup<T>(
+  array: T[],
+  distance: number,
+  predicate: any
+): (T | null)[] | null {
+  const i = findIndex(array, predicate);
+  if (i == null) {
     return null;
   }
 
-  return <PokemonCard pokemon={data.pokemon} />;
+  const center = findIndex(array, predicate);
+  if (center == -1) {
+    return null;
+  }
+
+  const indexes = range(center - distance, center + distance + 1);
+  return indexes.map(i => array[i]);
 }
 
 export default function PokemonDetail(props: {
@@ -38,16 +46,26 @@ export default function PokemonDetail(props: {
 }) {
   const number = props.match.params.number;
   const { data, error, loading } = Preview.useQuery({
-    variables: { first: Preview.pad(+number) }
+    variables: { first: Preview.pad(+number + 1) }
   });
   if (!data || !data.pokemons) {
     return null;
   }
 
-  const pokemon = find(data.pokemons, { number });
-  if (pokemon == null) {
+  const pokemons = findGroup(compact(data.pokemons), 2, { number });
+  if (pokemons == null) {
     return null;
   }
 
-  return <Detail id={pokemon.id} />;
+  return (
+    <Showcase>
+      {pokemons.map((pokemon, i) =>
+        pokemon ? (
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
+        ) : (
+          <PokemonCard.Placeholder key={i} />
+        )
+      )}
+    </Showcase>
+  );
 }
