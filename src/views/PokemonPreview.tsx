@@ -1,19 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as Preview from "../queries/Preview";
-
-function Render({ pokemon }: { pokemon: Preview.Pokemon }) {
-  return (
-    <Link to={`/pokemon/${pokemon.number}`}>
-      <figure>
-        <img src={pokemon.image || ""} />
-        <figcaption>
-          {pokemon.number} &mdash; {pokemon.name}
-        </figcaption>
-      </figure>
-    </Link>
-  );
-}
+import PokemonCard from "../components/PokemonCard";
 
 export default function PokemonPreview({}) {
   const { data, error, loading } = Preview.useQuery({
@@ -26,7 +14,14 @@ export default function PokemonPreview({}) {
 
   return (
     <div>
-      {data.pokemons.map(pokemon => pokemon && <Render pokemon={pokemon} />)}
+      {data.pokemons.map(
+        pokemon =>
+          pokemon && (
+            <Link to={`/pokemon/${pokemon.number}`}>
+              <PokemonCard pokemon={pokemon} />
+            </Link>
+          )
+      )}
     </div>
   );
 }

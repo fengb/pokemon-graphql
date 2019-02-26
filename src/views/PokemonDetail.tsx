@@ -3,6 +3,7 @@ import * as T from "./__generated__/PokemonDetail";
 import { match } from "react-router";
 import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../queries/Preview";
+import PokemonCard from "../components/PokemonCard";
 
 const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
   query PokemonDetail($id: String!) {
@@ -28,15 +29,7 @@ function Detail(props: { id: string }) {
     return null;
   }
 
-  const pokemon = data.pokemon;
-  return (
-    <figure>
-      <img src={pokemon.image || ""} />
-      <figcaption>
-        {pokemon.number} &mdash; {pokemon.name}
-      </figcaption>
-    </figure>
-  );
+  return <PokemonCard pokemon={data.pokemon} />;
 }
 
 export default function PokemonDetail(props: {
