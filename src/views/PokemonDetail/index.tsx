@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { match } from "react-router";
 // import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../../queries/Preview";
-import PokemonCard from "../../components/PokemonCard";
+import PreviewCard from "./PreviewCard";
 import { compact, findIndex, range } from "lodash";
-import Selectotron from "../../components/Selectotron";
+import Selectotron from "./Selectotron";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
@@ -39,18 +39,21 @@ export default function PokemonDetail(props: {
     return null;
   }
 
+  const selected = +number - 1;
+
   return (
-    <Selectotron selected={+number - 1}>
+    <Selectotron selected={selected}>
       {pokemons.map((pokemon, i) =>
         pokemon && pokemon.node ? (
           <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
-            <PokemonCard
+            <PreviewCard
               num={pokemon.node.id!}
+              active={i == selected}
               imgUrl={pokemon.node.sprites!.normal!.male!.front!}
             />
           </Link>
         ) : (
-          <PokemonCard.Placeholder key={i} />
+          <PreviewCard.Placeholder key={i} />
         )
       )}
     </Selectotron>

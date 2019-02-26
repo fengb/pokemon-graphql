@@ -1,6 +1,6 @@
 import * as React from "react";
 import { style } from "typestyle";
-import * as css from "../css";
+import * as css from "../../css";
 
 const className = style({
   position: "relative",
@@ -19,7 +19,7 @@ const numberClass = style({
   boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.5)"
 });
 
-function PokemonCard(props: { num: string; imgUrl: string }) {
+function PreviewCard(props: { num: string; imgUrl: string; active: boolean }) {
   return (
     <figure className={className}>
       <img src={props.imgUrl} />
@@ -28,8 +28,8 @@ function PokemonCard(props: { num: string; imgUrl: string }) {
   );
 }
 
-PokemonCard.Placeholder = () => {
+PreviewCard.Placeholder = () => {
   return <figure className={`${className} ${css.hidden()}`} />;
 };
 
-export default PokemonCard;
+export default PreviewCard;
