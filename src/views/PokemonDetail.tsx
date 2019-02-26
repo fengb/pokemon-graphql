@@ -4,6 +4,7 @@ import { match } from "react-router";
 import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../queries/Preview";
 import PokemonCard from "../components/PokemonCard";
+import { find } from "lodash";
 
 const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
   query PokemonDetail($id: String!) {
@@ -42,8 +43,8 @@ export default function PokemonDetail(props: {
   if (!data || !data.pokemons) {
     return null;
   }
-  const pokemon = data.pokemons.find(p => p != null && p.number === number);
 
+  const pokemon = find(data.pokemons, { number });
   if (pokemon == null) {
     return null;
   }

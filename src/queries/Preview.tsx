@@ -1,8 +1,6 @@
 import { gql, makeQuery } from "../helpers/apollo";
 import * as T from "./__generated__/Preview";
 
-export type Pokemon = T.Preview_pokemons;
-
 export function pad(num: number) {
   return Math.ceil(num / 100) * 100;
 }
