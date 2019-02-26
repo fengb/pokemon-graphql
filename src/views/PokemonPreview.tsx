@@ -15,16 +15,18 @@ function Render({ pokemon }: { pokemon: Preview.Pokemon }) {
   );
 }
 
-export default function PokemonPreview() {
+export default function PokemonPreview({}) {
+  const { data, error, loading } = Preview.useQuery({
+    variables: { first: Preview.pad(10) }
+  });
+
+  if (!data || !data.pokemons) {
+    return null;
+  }
+
   return (
-    <Preview.Query variables={{ first: Preview.pad(10) }}>
-      {({ data }) => {
-        if (data) {
-          return (data.pokemons || []).map(
-            pokemon => pokemon && Render({ pokemon })
-          );
-        }
-      }}
-    </Preview.Query>
+    <div>
+      {data.pokemons.map(pokemon => pokemon && <Render pokemon={pokemon} />)}
+    </div>
   );
 }

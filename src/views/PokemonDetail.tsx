@@ -47,22 +47,17 @@ export default function PokemonDetail(props: {
   match: match<{ number: string }>;
 }) {
   const number = props.match.params.number;
-  return (
-    <Preview.Query variables={{ first: Preview.pad(+number) }}>
-      {({ data }) => {
-        if (!data || !data.pokemons) {
-          return null;
-        }
-        const pokemon = data.pokemons.find(
-          p => p != null && p.number === number
-        );
+  const { data, error, loading } = Preview.useQuery({
+    variables: { first: Preview.pad(+number) }
+  });
+  if (!data || !data.pokemons) {
+    return null;
+  }
+  const pokemon = data.pokemons.find(p => p != null && p.number === number);
 
-        if (pokemon == null) {
-          return null;
-        }
+  if (pokemon == null) {
+    return null;
+  }
 
-        return <Detail id={pokemon.id} />;
-      }}
-    </Preview.Query>
-  );
+  return <Detail id={pokemon.id} />;
 }
