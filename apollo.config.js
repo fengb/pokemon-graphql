@@ -1,8 +1,8 @@
 module.exports = {
   client: {
     service: {
-      name: "pokemon",
-      url: "https://graphql-pokemon.now.sh/",
+      name: "pokeql",
+      url: "https://pokeql.com/v1",
       /*
       // optional headers
       headers: {
