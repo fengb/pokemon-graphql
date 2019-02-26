@@ -4,6 +4,10 @@ import PokemonDetail from "./views/PokemonDetail";
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 import { cssRule } from "typestyle";
 
+cssRule("*", {
+  boxSizing: "border-box"
+});
+
 cssRule("figure", {
   margin: 0
 });

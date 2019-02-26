@@ -3,17 +3,27 @@ import { style } from "typestyle";
 import * as css from "../helpers/css";
 
 const className = style({
+  position: "relative",
   width: "96px",
-  height: "110px",
+  height: "96px",
   background: "white",
-  padding: "10px 20px"
+  border: "1px solid black"
 });
+
+const numberClass = style({
+  position: "absolute",
+  top: "0",
+  right: "0",
+  padding: "4px 6px",
+  background: "rgba(255, 255, 255, 0.5)",
+  boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.5)"
+})
 
 function PokemonCard(props: { num: string; imgUrl: string }) {
   return (
-    <figure className={`${className} ${css.displayFlex({ column: true })}`}>
-      <figcaption className={css.center()}>{props.num}</figcaption>
-      <img className={css.flexGrow()} src={props.imgUrl} />
+    <figure className={className}>
+      <img src={props.imgUrl} />
+      <figcaption className={numberClass}>{props.num}</figcaption>
     </figure>
   );
 }
