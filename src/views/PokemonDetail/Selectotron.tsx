@@ -1,7 +1,7 @@
 import * as React from "react";
 import { style } from "typestyle";
-import Follower from "../../components/Follower";
-import { useKeyDown, useForcedRef } from "../../helpers/hooks";
+import Follower, { useForcedRef } from "../../components/Follower";
+import { useKeyDown } from "../../helpers/hooks";
 
 const CLASSES = {
   root: style({
@@ -52,7 +52,7 @@ export default function Selectotron(props: {
       <Follower
         className={CLASSES.selector}
         target={selectedChild.current}
-        onChange={(el: HTMLElement) => el.scrollIntoView()}
+        onChange={el => el && el.scrollIntoView()}
       />
     </div>
   );
