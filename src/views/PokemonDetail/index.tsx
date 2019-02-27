@@ -47,8 +47,8 @@ export default function PokemonDetail(
     <div>
       <Selectotron
         selected={selected}
-        selectPrev={() => props.history.push(`/pokemon/${+number - 1}`)}
-        selectNext={() => props.history.push(`/pokemon/${+number + 1}`)}
+        selectPrev={() => props.history.replace(`/pokemon/${+number - 1}`)}
+        selectNext={() => props.history.replace(`/pokemon/${+number + 1}`)}
       >
         {pokemons.map((pokemon, i) =>
           pokemon && pokemon.node ? (
