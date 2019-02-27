@@ -20,12 +20,24 @@ const selectorClass = style({
 export default function Selectotron(props: {
   selected: number;
   children: React.ReactElement[];
+  selectPrev?: () => any;
+  selectNext?: () => any;
 }) {
-  useKeyDown("ArrowLeft", () => console.log("Left"))
-  useKeyDown("ArrowRight", () => console.log("Right"))
+  useKeyDown("ArrowLeft", event => {
+    if (props.selectPrev) {
+      props.selectPrev();
+      event.preventDefault();
+    }
+  });
+  useKeyDown("ArrowRight", event => {
+    if (props.selectNext) {
+      props.selectNext();
+      event.preventDefault();
+    }
+  });
   const [selectorStyle, setSelectorStyle] = React.useState({});
   const selectedChild = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const el = selectedChild.current;
     if (el != null) {
       setSelectorStyle({

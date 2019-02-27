@@ -25,6 +25,7 @@ import Stats from "./Stats";
 // `);
 
 export default function PokemonDetail(props: {
+  history: any;
   match: match<{ number: string }>;
 }) {
   const number = props.match.params.number;
@@ -44,7 +45,11 @@ export default function PokemonDetail(props: {
 
   return (
     <div>
-      <Selectotron selected={selected}>
+      <Selectotron
+        selected={selected}
+        selectPrev={() => props.history.push(`/pokemon/${+number - 1}`)}
+        selectNext={() => props.history.push(`/pokemon/${+number + 1}`)}
+      >
         {pokemons.map((pokemon, i) =>
           pokemon && pokemon.node ? (
             <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
