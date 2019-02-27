@@ -2,20 +2,22 @@ import * as React from "react";
 import { style } from "typestyle";
 import { useKeyDown } from "../../helpers/hooks";
 
-const className = style({
-  position: "relative",
-  background: "black",
-  maxWidth: "100%",
-  overflowX: "scroll",
-  display: "flex"
-});
+const CLASSES = {
+  root: style({
+    position: "relative",
+    background: "black",
+    maxWidth: "100%",
+    overflowX: "scroll",
+    display: "flex"
+  }),
 
-const selectorClass = style({
-  position: "absolute",
-  pointerEvents: "none",
-  boxShadow: "inset 0 0 0 3px black",
-  visibility: "hidden"
-});
+  selector: style({
+    position: "absolute",
+    pointerEvents: "none",
+    boxShadow: "inset 0 0 0 3px black",
+    visibility: "hidden"
+  })
+};
 
 export default function Selectotron(props: {
   selected: number;
@@ -53,7 +55,7 @@ export default function Selectotron(props: {
   }, [props.selected, selectedChild.current]);
 
   return (
-    <div className={className}>
+    <div className={CLASSES.root}>
       {props.children.map((child, i) => (
         <div
           key={child.key || i}
@@ -62,7 +64,7 @@ export default function Selectotron(props: {
           {child}
         </div>
       ))}
-      <div className={selectorClass} style={selectorStyle} />
+      <div className={CLASSES.selector} style={selectorStyle} />
     </div>
   );
 }
