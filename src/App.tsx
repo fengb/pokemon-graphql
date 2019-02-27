@@ -1,7 +1,12 @@
 import * as React from "react";
-// import PokemonPreview from "./views/PokemonPreview";
+import {
+  HashRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  Switch
+} from "react-router-dom";
 import PokemonDetail from "./views/PokemonDetail";
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 
 export function App() {
   return (
@@ -10,8 +15,7 @@ export function App() {
         <Link to="/">Pokemon!</Link>
         <Switch>
           <Route path="/pokemon/:number" component={PokemonDetail} />
-          <Redirect exact from="/" to="/pokemon/001" />
-          {/* <Route path="/" component={PokemonPreview} /> */}
+          <Redirect exact from="/" to="/pokemon/1" />
         </Switch>
       </main>
     </Router>
