@@ -1,4 +1,5 @@
 import * as React from "react";
+import { chain } from "lodash";
 import { style } from "typestyle";
 
 const CLASSES = {
@@ -19,17 +20,24 @@ const CLASSES = {
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: "lightgreen",
+    backgroundColor: "lightgray",
     zIndex: -1
   })
 };
 
-export default function Fillbar(props: { size: number; max: number }) {
+export default function Fillbar(props: {
+  size: number;
+  max: number;
+  barColor?: string;
+}) {
   const percent = Math.min(props.size / props.max, 1) * 100;
   return (
     <div className={CLASSES.root}>
       <span className={CLASSES.text}>{props.size}</span>
-      <div className={CLASSES.bar} style={{ width: `${percent}%` }} />
+      <div
+        className={CLASSES.bar}
+        style={{ width: `${percent}%`, backgroundColor: props.barColor }}
+      />
     </div>
   );
 }

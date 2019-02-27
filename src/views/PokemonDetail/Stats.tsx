@@ -26,7 +26,21 @@ const useQuery = makeQuery<T.PokemonStats, T.PokemonStatsVariables>(gql`
   }
 `);
 
-export default function(props: { identifier: string }) {
+function colorFor(value: number) {
+  if (value >= 150) {
+    return "blue";
+  } else if (value >= 100) {
+    return "green";
+  } else if (value >= 75) {
+    return "yellow";
+  } else if (value >= 50) {
+    return "orange";
+  } else {
+    return "red";
+  }
+}
+
+export default function Stats(props: { identifier: string }) {
   const { data, error, loading } = useQuery({
     variables: { identifier: props.identifier }
   });
@@ -56,7 +70,11 @@ export default function(props: { identifier: string }) {
             {startCase(stat.stat!.identifier!)}
           </div>
           <div className={css.grid.column()}>
-            <Fillbar max={150} size={stat.baseStat || 0} />
+            <Fillbar
+              max={150}
+              size={stat.baseStat || 0}
+              barColor={colorFor(stat.baseStat || 0)}
+            />
           </div>
         </div>
       ))}
