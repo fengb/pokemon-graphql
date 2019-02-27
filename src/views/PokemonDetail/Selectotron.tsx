@@ -1,7 +1,7 @@
 import * as React from "react";
 import { style } from "typestyle";
 import Follower from "../../components/Follower";
-import { useKeyDown } from "../../helpers/hooks";
+import { useKeyDown, useForcedRef } from "../../helpers/hooks";
 
 const CLASSES = {
   root: style({
@@ -37,7 +37,7 @@ export default function Selectotron(props: {
       event.preventDefault();
     }
   });
-  const selectedChild = React.useRef<HTMLDivElement>(null);
+  const selectedChild = useForcedRef<HTMLDivElement>(null);
 
   return (
     <div className={CLASSES.root}>
