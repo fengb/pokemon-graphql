@@ -1,13 +1,11 @@
 {
-  "main.css": "/pokemon-graphql/static/css/main.c25378ce.chunk.css",
-  "main.js": "/pokemon-graphql/static/js/main.8eeeb108.chunk.js",
-  "main.js.map": "/pokemon-graphql/static/js/main.8eeeb108.chunk.js.map",
+  "main.js": "/pokemon-graphql/static/js/main.8a95b25a.chunk.js",
+  "main.js.map": "/pokemon-graphql/static/js/main.8a95b25a.chunk.js.map",
   "runtime~main.js": "/pokemon-graphql/static/js/runtime~main.38d45285.js",
   "runtime~main.js.map": "/pokemon-graphql/static/js/runtime~main.38d45285.js.map",
-  "static/js/2.c21a8905.chunk.js": "/pokemon-graphql/static/js/2.c21a8905.chunk.js",
-  "static/js/2.c21a8905.chunk.js.map": "/pokemon-graphql/static/js/2.c21a8905.chunk.js.map",
+  "static/js/2.a4140a5e.chunk.js": "/pokemon-graphql/static/js/2.a4140a5e.chunk.js",
+  "static/js/2.a4140a5e.chunk.js.map": "/pokemon-graphql/static/js/2.a4140a5e.chunk.js.map",
   "index.html": "/pokemon-graphql/index.html",
-  "precache-manifest.273ecc6b6c288dfb12d3a132843f8a43.js": "/pokemon-graphql/precache-manifest.273ecc6b6c288dfb12d3a132843f8a43.js",
-  "service-worker.js": "/pokemon-graphql/service-worker.js",
-  "static/css/main.c25378ce.chunk.css.map": "/pokemon-graphql/static/css/main.c25378ce.chunk.css.map"
+  "precache-manifest.179deadc4f0b999ea00ed1b789c1f6ad.js": "/pokemon-graphql/precache-manifest.179deadc4f0b999ea00ed1b789c1f6ad.js",
+  "service-worker.js": "/pokemon-graphql/service-worker.js"
 }
