@@ -51,9 +51,7 @@ export default function(props: { identifier: string }) {
       {stats.map((stat, i) => (
         <div className={css.grid.row()} key={stat.id || i}>
           <div
-            className={`${css.grid.fixedColumn("140px")} ${css.text.align(
-              "right"
-            )}`}
+            className={`${css.grid.column("140px")} ${css.text.align("right")}`}
           >
             {startCase(stat.stat!.identifier!)}
           </div>
