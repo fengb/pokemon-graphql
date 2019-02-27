@@ -1,5 +1,6 @@
 import * as React from "react";
 import { style } from "typestyle";
+import Follower from "../../components/Follower";
 import { useKeyDown } from "../../helpers/hooks";
 
 const CLASSES = {
@@ -12,10 +13,9 @@ const CLASSES = {
   }),
 
   selector: style({
-    position: "absolute",
     pointerEvents: "none",
     boxShadow: "inset 0 0 0 3px black",
-    visibility: "hidden"
+    transition: "0.3s ease left"
   })
 };
 
@@ -37,22 +37,7 @@ export default function Selectotron(props: {
       event.preventDefault();
     }
   });
-  const [selectorStyle, setSelectorStyle] = React.useState({});
   const selectedChild = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
-    const el = selectedChild.current;
-    if (el != null) {
-      setSelectorStyle({
-        visibility: "visible",
-        transition: "0.4s ease-out left",
-        left: `${el.offsetLeft}px`,
-        width: `${el.clientWidth}px`,
-        height: `${el.clientHeight}px`
-      });
-
-      el.scrollIntoView();
-    }
-  }, [props.selected, selectedChild.current]);
 
   return (
     <div className={CLASSES.root}>
@@ -64,7 +49,11 @@ export default function Selectotron(props: {
           {child}
         </div>
       ))}
-      <div className={CLASSES.selector} style={selectorStyle} />
+      <Follower
+        className={CLASSES.selector}
+        target={selectedChild.current}
+        onChange={(el: HTMLElement) => el.scrollIntoView()}
+      />
     </div>
   );
 }
