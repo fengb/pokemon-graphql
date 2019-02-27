@@ -1,11 +1,16 @@
 import * as React from "react";
 import Apollo from "./Apollo";
 import Router, { Routes, Link } from "./Router";
+import * as css from "../css";
 
 export function App() {
   return (
     <main>
-      <Link to="/">Pokemon!</Link>
+      <div className={css.grid.container()}>
+        <h1>
+          <Link to="/">Pokemon!</Link>
+        </h1>
+      </div>
       <Routes />
     </main>
   );

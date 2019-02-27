@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 // import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../../queries/Preview";
+import * as css from "../../css";
 import PreviewCard from "./PreviewCard";
 import { compact, startCase } from "lodash";
 import Selectotron from "./Selectotron";
@@ -64,8 +65,10 @@ export default function PokemonDetail(
           )
         )}
       </Selectotron>
-      <h2>{startCase(selectedPokemon.identifier!)}</h2>
-      <Stats identifier={selectedPokemon.identifier!} />
+      <div className={css.grid.container()}>
+        <h2>{startCase(selectedPokemon.identifier!)}</h2>
+        <Stats identifier={selectedPokemon.identifier!} />
+      </div>
     </div>
   );
 }
