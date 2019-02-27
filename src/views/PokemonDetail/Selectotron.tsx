@@ -37,7 +37,7 @@ export default function Selectotron(props: {
   });
   const [selectorStyle, setSelectorStyle] = React.useState({});
   const selectedChild = React.useRef<HTMLDivElement>(null);
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     const el = selectedChild.current;
     if (el != null) {
       setSelectorStyle({

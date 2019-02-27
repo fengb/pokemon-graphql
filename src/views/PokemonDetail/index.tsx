@@ -1,11 +1,11 @@
 import React from "react";
 // import * as T from "./__generated__/PokemonDetail";
 import { Link } from "react-router-dom";
-import { match } from "react-router";
+import { RouteComponentProps } from "react-router";
 // import { gql, makeQuery } from "../helpers/apollo";
 import * as Preview from "../../queries/Preview";
 import PreviewCard from "./PreviewCard";
-import { compact, findIndex, range } from "lodash";
+import { compact, startCase } from "lodash";
 import Selectotron from "./Selectotron";
 import Stats from "./Stats";
 
@@ -24,10 +24,9 @@ import Stats from "./Stats";
 //   }
 // `);
 
-export default function PokemonDetail(props: {
-  history: any;
-  match: match<{ number: string }>;
-}) {
+export default function PokemonDetail(
+  props: RouteComponentProps<{ number: string }>
+) {
   const number = props.match.params.number;
   const { data, error, loading } = Preview.useQuery({
     variables: { first: Preview.pad(+number + 1) }
@@ -42,6 +41,7 @@ export default function PokemonDetail(props: {
   }
 
   const selected = +number - 1;
+  const selectedPokemon = pokemons[selected].node!;
 
   return (
     <div>
@@ -64,7 +64,8 @@ export default function PokemonDetail(props: {
           )
         )}
       </Selectotron>
-      <Stats identifier={pokemons[selected].node!.identifier!} />
+      <h2>{startCase(selectedPokemon.identifier!)}</h2>
+      <Stats identifier={selectedPokemon.identifier!} />
     </div>
   );
 }
