@@ -1,6 +1,7 @@
 import * as React from "react";
 import { style } from "typestyle";
 import * as css from "../../css";
+import LazyImage from "../../components/LazyImage";
 
 const CLASSES = {
   root: style({
@@ -35,7 +36,7 @@ const CLASSES = {
 function PreviewCard(props: { num: string; imgUrl: string; active: boolean }) {
   return (
     <figure className={CLASSES.root}>
-      <img
+      <LazyImage
         className={`${CLASSES.image} ${props.active && "active"}`}
         src={props.imgUrl}
       />
