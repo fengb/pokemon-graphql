@@ -10,6 +10,7 @@ import { compact, startCase } from "lodash";
 import Selectotron from "./Selectotron";
 import Stats from "./Stats";
 import { useDebouncedCallback } from "use-debounce";
+import { useDerivedState } from "../../helpers/hooks";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
@@ -29,16 +30,21 @@ import { useDebouncedCallback } from "use-debounce";
 export default function PokemonDetail(
   props: RouteComponentProps<{ number: string }>
 ) {
-  const number = +props.match.params.number;
-  const pageRef = React.useRef(number);
-  const [changePage, cancelChangePage] = useDebouncedCallback(
+  const [number, setNumber] = useDerivedState(+props.match.params.number);
+  const [navigateTo, cancelNavigate] = useDebouncedCallback(
     (val: number) => props.history.replace(`/pokemon/${val}`),
     500,
     []
   );
+  function setNumberWithCheck(val: number) {
+    if (val > 0) {
+      setNumber(val);
+      navigateTo(val);
+    }
+  }
 
   const { data, error, loading } = Preview.useQuery({
-    variables: { first: Preview.pad(+number + 1) }
+    variables: { first: Preview.pad(number + 1) }
   });
   if (!data || !data.Pokemon) {
     return null;
@@ -49,15 +55,15 @@ export default function PokemonDetail(
     return null;
   }
 
-  const selected = +number - 1;
+  const selected = number - 1;
   const selectedPokemon = pokemons[selected].node!;
 
   return (
     <div>
       <Selectotron
         selected={selected}
-        selectPrev={() => changePage(--pageRef.current)}
-        selectNext={() => changePage(++pageRef.current)}
+        selectPrev={() => setNumberWithCheck(number - 1)}
+        selectNext={() => setNumberWithCheck(number + 1)}
       >
         {pokemons.map((pokemon, i) =>
           pokemon && pokemon.node ? (

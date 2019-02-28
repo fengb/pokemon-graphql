@@ -18,3 +18,9 @@ export function useKeyDown(key: string, func: (event: Event) => any) {
     }
   });
 }
+
+export function useDerivedState<S>(initial: S) {
+  const [state, setState] = React.useState(initial);
+  React.useEffect(() => setState(initial), [initial]);
+  return [state, setState] as [S, React.Dispatch<React.SetStateAction<S>>];
+}
