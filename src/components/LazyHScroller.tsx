@@ -47,9 +47,13 @@ export default function(props: {
     if (viewportWidth == null || scrollLeft == null) {
       return false;
     }
+    const BUFFER = viewportWidth / 4;
     const childLeft = props.childWidth * i;
     const childRight = childLeft + props.childWidth;
-    return childLeft < scrollLeft + viewportWidth && childRight > scrollLeft;
+    return (
+      childLeft < scrollLeft + viewportWidth + BUFFER &&
+      childRight > scrollLeft - BUFFER
+    );
   }
 
   const children = props.children.map((child, i) => {
