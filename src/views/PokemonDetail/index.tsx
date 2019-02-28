@@ -13,6 +13,7 @@ import LazyHScroller from "../../components/LazyHScroller";
 import Stats from "./Stats";
 import { useDebouncedCallback } from "use-debounce";
 import { useDerivedState } from "../../helpers/hooks";
+import POKEMON from "../../data/pokemons";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
@@ -45,48 +46,25 @@ export default function PokemonDetail(
     }
   }
 
-  const { data, error, loading, fetchMore } = Preview.useQuery({
-    variables: { first: 50 }
-  });
-  if (!data || !data.Pokemon) {
-    return null;
-  }
-
-  if (!loading && data.Pokemon.pageInfo.hasNextPage) {
-    fetchMore({
-      variables: { first: 50, after: data.Pokemon.pageInfo.endCursor },
-      updateQuery: relayFetchMerge("Pokemon")
-    });
-  }
-
-  const pokemons = compact(data.Pokemon.edges);
-  if (pokemons == null) {
-    return null;
-  }
-
-  const selected = number - 1;
-  const selectedPokemon = pokemons[selected].node!;
+  const selectedIndex = number - 1;
+  const selectedPokemon = POKEMON[selectedIndex];
 
   return (
     <div>
       <LazyHScroller childWidth={96} childHeight={96}>
-        {pokemons.map((pokemon, i) =>
-          pokemon && pokemon.node ? (
-            <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
-              <PreviewCard
-                num={pokemon.node.id!}
-                active={i == selected}
-                imgUrl={pokemon.node.sprites!.normal!.male!.front!}
-              />
-            </Link>
-          ) : (
-            <PreviewCard.Placeholder key={i} />
-          )
-        )}
+        {POKEMON.map((data, i) => (
+          <Link key={data.identifier} to={`/pokemon/${i + 1}`}>
+            <PreviewCard
+              num={String(i + 1)}
+              active={i == selectedIndex}
+              imgUrl={data.img}
+            />
+          </Link>
+        ))}
       </LazyHScroller>
       <div className={css.grid.container()}>
-        <h2>{startCase(selectedPokemon.identifier!)}</h2>
-        <Stats identifier={selectedPokemon.identifier!} />
+        <h2>{startCase(selectedPokemon.identifier)}</h2>
+        <Stats identifier={selectedPokemon.identifier} />
       </div>
     </div>
   );
