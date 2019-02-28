@@ -9,6 +9,7 @@ import PreviewCard from "./PreviewCard";
 import { compact, startCase } from "lodash";
 import Selectotron from "./Selectotron";
 import Stats from "./Stats";
+import { useDebouncedCallback } from "use-debounce";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
 //   query PokemonDetail($id: String!) {
@@ -28,7 +29,14 @@ import Stats from "./Stats";
 export default function PokemonDetail(
   props: RouteComponentProps<{ number: string }>
 ) {
-  const number = props.match.params.number;
+  const number = +props.match.params.number;
+  const pageRef = React.useRef(number);
+  const [changePage, cancelChangePage] = useDebouncedCallback(
+    (val: number) => props.history.replace(`/pokemon/${val}`),
+    500,
+    []
+  );
+
   const { data, error, loading } = Preview.useQuery({
     variables: { first: Preview.pad(+number + 1) }
   });
@@ -48,8 +56,8 @@ export default function PokemonDetail(
     <div>
       <Selectotron
         selected={selected}
-        selectPrev={() => props.history.replace(`/pokemon/${+number - 1}`)}
-        selectNext={() => props.history.replace(`/pokemon/${+number + 1}`)}
+        selectPrev={() => changePage(--pageRef.current)}
+        selectNext={() => changePage(++pageRef.current)}
       >
         {pokemons.map((pokemon, i) =>
           pokemon && pokemon.node ? (
