@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 // import { gql, makeQuery } from "../helpers/apollo";
+import { relayFetchMerge } from "../../helpers/apollo";
 import * as Preview from "../../queries/Preview";
 import * as css from "../../css";
 import PreviewCard from "./PreviewCard";
@@ -53,10 +54,7 @@ export default function PokemonDetail(
   if (!loading && data.Pokemon.pageInfo.hasNextPage) {
     fetchMore({
       variables: { first: 50, after: data.Pokemon.pageInfo.endCursor },
-
-      updateQuery(previousResult, { fetchMoreResult }) {
-        return Preview.merge(previousResult, fetchMoreResult);
-      }
+      updateQuery: relayFetchMerge("Pokemon")
     });
   }
 
