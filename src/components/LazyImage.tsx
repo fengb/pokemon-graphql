@@ -2,7 +2,7 @@ import * as React from "react";
 import { throttle } from "lodash";
 import { useEventListener } from "../helpers/hooks";
 
-export function isInView(el: HTMLElement) {
+export function isInView(el: Element) {
   const bounds = el.getBoundingClientRect();
   return (
     bounds.left < window.innerWidth &&
@@ -12,20 +12,32 @@ export function isInView(el: HTMLElement) {
   );
 }
 
+const LAZY_HIDDEN = new Map<Element, (show: boolean) => any>();
+
+const triggerLazyLoad = throttle(() => {
+  for (const [el, setShow] of LAZY_HIDDEN.entries()) {
+    if (isInView(el)) {
+      setShow(true);
+      LAZY_HIDDEN.delete(el);
+    }
+  };
+}, 200);
+window.addEventListener("mousewheel", triggerLazyLoad);
+window.addEventListener("keyup", triggerLazyLoad);
+
 type Props = JSX.IntrinsicElements["img"];
-export default function LazyImage({ src, ...imgProps }: Props) {
-  const [imgSrc, setImgSrc] = React.useState<string | undefined>(undefined);
+export default function LazyImage({ src, ...props }: Props) {
+  const [show, setShow] = React.useState(false);
   const ref = React.useRef<HTMLImageElement>(null);
 
-  let lazyLoad = throttle(function updateSrc() {
-    if (!imgSrc && ref.current !== null && isInView(ref.current)) {
-      setImgSrc(src);
+  React.useEffect(() => {
+    if (show || ref.current == null) {
+      return;
     }
-  }, 200);
+    LAZY_HIDDEN.set(ref.current, setShow);
+    triggerLazyLoad();
+    return () => void LAZY_HIDDEN.delete(ref.current!);
+  }, [ref.current]);
 
-  React.useLayoutEffect(lazyLoad, [ref.current]);
-  useEventListener("mousewheel", lazyLoad);
-  useEventListener("keyup", lazyLoad);
-
-  return <img ref={ref} {...imgProps} src={imgSrc} />;
+  return <img ref={ref} {...props} src={show ? src : undefined} />;
 }
