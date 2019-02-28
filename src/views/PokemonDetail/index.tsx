@@ -9,6 +9,7 @@ import * as css from "../../css";
 import PreviewCard from "./PreviewCard";
 import { compact, startCase } from "lodash";
 import Selectotron from "./Selectotron";
+import LazyHScroller from "../../components/LazyHScroller";
 import Stats from "./Stats";
 import { useDebouncedCallback } from "use-debounce";
 import { useDerivedState } from "../../helpers/hooks";
@@ -68,11 +69,7 @@ export default function PokemonDetail(
 
   return (
     <div>
-      <Selectotron
-        selected={selected}
-        selectPrev={() => setNumberWithCheck(number - 1)}
-        selectNext={() => setNumberWithCheck(number + 1)}
-      >
+      <LazyHScroller childWidth={96} childHeight={96}>
         {pokemons.map((pokemon, i) =>
           pokemon && pokemon.node ? (
             <Link key={pokemon.cursor} to={`/pokemon/${pokemon.node.id}`}>
@@ -86,7 +83,7 @@ export default function PokemonDetail(
             <PreviewCard.Placeholder key={i} />
           )
         )}
-      </Selectotron>
+      </LazyHScroller>
       <div className={css.grid.container()}>
         <h2>{startCase(selectedPokemon.identifier!)}</h2>
         <Stats identifier={selectedPokemon.identifier!} />
