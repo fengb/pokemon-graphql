@@ -1,13 +1,13 @@
 import * as React from "react";
 
 export function useEventListener(
-  target: EventTarget,
+  target: EventTarget | null,
   name: string,
   func: ((event: Event) => any) | null,
   deps?: React.DependencyList
 ) {
   React.useEffect(() => {
-    if (func) {
+    if (target && func) {
       target.addEventListener(name, func);
       return () => target.removeEventListener(name, func);
     }
