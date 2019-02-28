@@ -1,7 +1,8 @@
 import { cssRule } from "typestyle";
 
 cssRule("*", {
-  boxSizing: "border-box"
+  boxSizing: "border-box",
+  "-webkit-overflow-scrolling": "touch"
 });
 
 cssRule("html, body", {
