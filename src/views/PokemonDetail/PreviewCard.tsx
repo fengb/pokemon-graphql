@@ -5,8 +5,7 @@ import LazyImage from "../../components/LazyImage";
 
 const CLASSES = {
   root: style({
-    position: "relative",
-    background: "white"
+    position: "relative"
   }),
 
   image: style({
@@ -17,19 +16,23 @@ const CLASSES = {
     border: "1px solid black",
     filter: "brightness(0.8) grayscale(1)",
     $nest: {
-      "&:hover, &.active": {
+      "&:hover": {
         filter: "none"
+      },
+      "&.active": {
+        filter: "none",
+        borderWidth: "3px"
       }
     }
   }),
 
   number: style({
     position: "absolute",
-    top: "0",
-    right: "0",
+    top: 0,
+    right: 0,
     padding: "4px 6px",
     background: "rgba(255, 255, 255, 0.5)",
-    boxShadow: "0 0 0 1px rgba(0, 0, 0, 0.5)"
+    border: "1px solid rgba(0, 0, 0, 0.5)"
   })
 };
 
