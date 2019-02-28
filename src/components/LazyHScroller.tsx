@@ -22,6 +22,7 @@ const CLASSES = {
 export default function(props: {
   childWidth: number;
   childHeight: number;
+  focus?: number;
   children: React.ReactElement[];
   className?: string;
   style?: React.CSSProperties;
@@ -37,27 +38,35 @@ export default function(props: {
   }
   React.useEffect(updateDimensions, [ref.current]);
   useEventListener(ref.current, "scroll", updateDimensions);
+  React.useEffect(() => {
+    if (ref.current && props.focus != null) {
+      ref.current.scrollLeft += viewportOffset(props.focus);
+    }
+  }, [ref.current, props.focus]);
 
   const scrollerStyle = {
     width: props.childWidth * props.children.length,
     height: props.childHeight
   };
 
-  function shouldRender(i: number) {
+  function viewportOffset(i: number) {
     if (viewportWidth == null || scrollLeft == null) {
-      return false;
+      return 0;
     }
-    const BUFFER = viewportWidth / 4;
     const childLeft = props.childWidth * i;
     const childRight = childLeft + props.childWidth;
-    return (
-      childLeft < scrollLeft + viewportWidth + BUFFER &&
-      childRight > scrollLeft - BUFFER
-    );
+    if (childLeft < scrollLeft) {
+      return childLeft - scrollLeft;
+    } else if (childRight > scrollLeft + viewportWidth) {
+      return childRight - scrollLeft - viewportWidth;
+    } else {
+      return 0;
+    }
   }
 
+  const BUFFER = (viewportWidth || 0) / 4;
   const children = props.children.map((child, i) => {
-    if (!shouldRender(i)) {
+    if (Math.abs(viewportOffset(i)) > BUFFER) {
       return null;
     }
     return (

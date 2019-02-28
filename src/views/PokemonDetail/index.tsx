@@ -12,7 +12,7 @@ import Selectotron from "./Selectotron";
 import LazyHScroller from "../../components/LazyHScroller";
 import Stats from "./Stats";
 import { useDebouncedCallback } from "use-debounce";
-import { useDerivedState } from "../../helpers/hooks";
+import { useDerivedState, useKeyDown } from "../../helpers/hooks";
 import POKEMON from "../../data/pokemons";
 
 // const useQuery = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
@@ -45,13 +45,21 @@ export default function PokemonDetail(
       navigateTo(val);
     }
   }
+  useKeyDown("ArrowLeft", event => {
+    setNumberWithCheck(number - 1);
+    event.preventDefault();
+  });
+  useKeyDown("ArrowRight", event => {
+    setNumberWithCheck(number + 1);
+    event.preventDefault();
+  });
 
   const selectedIndex = number - 1;
   const selectedPokemon = POKEMON[selectedIndex];
 
   return (
     <div>
-      <LazyHScroller childWidth={96} childHeight={96}>
+      <LazyHScroller childWidth={96} childHeight={96} focus={selectedIndex}>
         {POKEMON.map((data, i) => (
           <Link key={data.identifier} to={`/pokemon/${i + 1}`}>
             <PreviewCard
