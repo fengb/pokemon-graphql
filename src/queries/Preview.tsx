@@ -34,3 +34,18 @@ export const useQuery = makeQuery<T.Preview, T.PreviewVariables>(
     }
   `
 );
+
+export function merge(previous: T.Preview, next?: T.Preview): T.Preview {
+  if (next == null || next.Pokemon == null || next.Pokemon.edges == null) {
+    return previous;
+  }
+
+  return {
+    Pokemon: {
+      ...previous.Pokemon!,
+      __typename: previous.Pokemon!.__typename,
+      edges: [...previous.Pokemon!.edges!, ...next.Pokemon.edges],
+      pageInfo: next.Pokemon!.pageInfo
+    }
+  };
+}

@@ -43,11 +43,21 @@ export default function PokemonDetail(
     }
   }
 
-  const { data, error, loading } = Preview.useQuery({
-    variables: { first: Preview.pad(number + 1) }
+  const { data, error, loading, fetchMore } = Preview.useQuery({
+    variables: { first: 50 }
   });
   if (!data || !data.Pokemon) {
     return null;
+  }
+
+  if (!loading && data.Pokemon.pageInfo.hasNextPage) {
+    fetchMore({
+      variables: { first: 50, after: data.Pokemon.pageInfo.endCursor },
+
+      updateQuery(previousResult, { fetchMoreResult }) {
+        return Preview.merge(previousResult, fetchMoreResult);
+      }
+    });
   }
 
   const pokemons = compact(data.Pokemon.edges);
