@@ -23,7 +23,7 @@ export function row() {
 }
 
 type ColumnSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-export function column(size: ColumnSize | string = "dynamic") {
+export function column(size: ColumnSize | "dynamic" | string = "dynamic") {
   if (size === "dynamic") {
     return style({
       paddingLeft: HALF_GUTTER,

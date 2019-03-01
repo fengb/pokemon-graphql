@@ -8,9 +8,9 @@ import * as Preview from "../../queries/Preview";
 import * as css from "../../css";
 import PreviewCard from "./PreviewCard";
 import { compact, startCase } from "lodash";
-import Selectotron from "./Selectotron";
 import LazyHScroller from "../../components/LazyHScroller";
 import Stats from "./Stats";
+import PokemonTypes from "./PokemonTypes";
 import { useDebouncedCallback } from "use-debounce";
 import { useDerivedState, useKeyDown } from "../../helpers/hooks";
 import POKEMON from "../../data/pokemons";
@@ -71,7 +71,15 @@ export default function PokemonDetail(
         ))}
       </LazyHScroller>
       <div className={css.grid.container()}>
-        <h2>{startCase(selectedPokemon.identifier)}</h2>
+        <div className={css.grid.row()}>
+          <h2 className={css.grid.column("auto")}>
+            {startCase(selectedPokemon.identifier)}
+          </h2>
+          <div className={css.grid.column()}>
+            <PokemonTypes identifier={selectedPokemon.identifier} />
+          </div>
+        </div>
+        <div className={css.grid.row()} />
         <Stats identifier={selectedPokemon.identifier} />
       </div>
     </div>
