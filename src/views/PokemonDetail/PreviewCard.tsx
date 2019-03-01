@@ -1,5 +1,6 @@
 import * as React from "react";
 import { style } from "typestyle";
+import MountedImage from "../../components/MountedImage";
 import * as css from "../../css";
 
 const CLASSES = {
@@ -38,7 +39,7 @@ const CLASSES = {
 function PreviewCard(props: { num: string; imgUrl: string; active: boolean }) {
   return (
     <figure className={CLASSES.root}>
-      <img
+      <MountedImage
         className={`${CLASSES.image} ${props.active && "active"}`}
         src={props.imgUrl}
       />
