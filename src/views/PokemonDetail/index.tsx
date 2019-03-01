@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { RouteComponentProps } from "react-router";
 import * as css from "../../css";
 import PreviewCard from "./PreviewCard";
-import { compact, startCase } from "lodash";
+import Evolution from "./Evolution";
 import LazyHScroller from "../../components/LazyHScroller";
 import Stats from "./Stats";
 import PokemonTypes from "./PokemonTypes";
@@ -52,15 +52,8 @@ export default function PokemonDetail(
         ))}
       </LazyHScroller>
       <div className={css.grid.container()}>
-        <div className={css.grid.row()}>
-          <h2 className={css.grid.column("auto")}>
-            {startCase(selectedPokemon.identifier)}
-          </h2>
-          <div className={css.grid.column()}>
-            <PokemonTypes identifier={selectedPokemon.identifier} />
-          </div>
-        </div>
-        <div className={css.grid.row()} />
+        <Evolution identifier={selectedPokemon.identifier} />
+        <PokemonTypes identifier={selectedPokemon.identifier} />
         <Stats identifier={selectedPokemon.identifier} />
       </div>
     </div>

@@ -9,6 +9,14 @@ export const use = makeQuery<T.PokemonDetail, T.PokemonDetailVariables>(gql`
         node {
           id
           identifier
+          species {
+            evolutionChain {
+              pokemonSpecies {
+                id
+                identifier
+              }
+            }
+          }
           pokemonTypes {
             type {
               id
@@ -39,6 +47,20 @@ function extractPokemon(detail?: T.PokemonDetail) {
     return null;
   }
   return detail.Pokemon.edges[0]!.node;
+}
+
+export function extractEvolution(detail?: T.PokemonDetail) {
+  const pokemon = extractPokemon(detail);
+  if (!pokemon) {
+    return null;
+  }
+
+  const chain = compact(pokemon.species!.evolutionChain!.pokemonSpecies);
+  if (!chain.length) {
+    return null;
+  }
+
+  return chain.map(c => c.identifier!);
 }
 
 export function extractStats(detail?: T.PokemonDetail) {

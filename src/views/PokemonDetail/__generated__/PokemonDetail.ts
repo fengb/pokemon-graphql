@@ -6,6 +6,31 @@
 // GraphQL query operation: PokemonDetail
 // ====================================================
 
+export interface PokemonDetail_Pokemon_edges_node_species_evolutionChain_pokemonSpecies {
+  __typename: "PokemonSpecy";
+  /**
+   * Returns the id of the pokemon species.
+   */
+  id: string | null;
+  /**
+   * Returns the identifier of the pokemon species.
+   */
+  identifier: string | null;
+}
+
+export interface PokemonDetail_Pokemon_edges_node_species_evolutionChain {
+  __typename: "EvolutionChain";
+  pokemonSpecies: (PokemonDetail_Pokemon_edges_node_species_evolutionChain_pokemonSpecies | null)[] | null;
+}
+
+export interface PokemonDetail_Pokemon_edges_node_species {
+  __typename: "PokemonSpecy";
+  /**
+   * Returns information about the evolution chain of this pokemon species.
+   */
+  evolutionChain: PokemonDetail_Pokemon_edges_node_species_evolutionChain | null;
+}
+
 export interface PokemonDetail_Pokemon_edges_node_pokemonTypes_type {
   __typename: "Type";
   id: string | null;
@@ -40,6 +65,7 @@ export interface PokemonDetail_Pokemon_edges_node {
    * Returns the identifier of the pokemon.
    */
   identifier: string | null;
+  species: PokemonDetail_Pokemon_edges_node_species | null;
   /**
    * Returns an array of the pokemon's type information.
    */
