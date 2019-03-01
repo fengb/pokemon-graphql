@@ -6,7 +6,7 @@
 // GraphQL query operation: PokemonDetail
 // ====================================================
 
-export interface PokemonDetail_Pokemon_edges_node_species_evolutionChain_pokemonSpecies {
+export interface PokemonDetail_Pokemon_edges_node_species_evolvesFromSpecies_evolvesFromSpecies {
   __typename: "PokemonSpecy";
   /**
    * Returns the id of the pokemon species.
@@ -18,17 +18,60 @@ export interface PokemonDetail_Pokemon_edges_node_species_evolutionChain_pokemon
   identifier: string | null;
 }
 
-export interface PokemonDetail_Pokemon_edges_node_species_evolutionChain {
-  __typename: "EvolutionChain";
-  pokemonSpecies: (PokemonDetail_Pokemon_edges_node_species_evolutionChain_pokemonSpecies | null)[] | null;
+export interface PokemonDetail_Pokemon_edges_node_species_evolvesFromSpecies {
+  __typename: "PokemonSpecy";
+  /**
+   * Returns the id of the pokemon species.
+   */
+  id: string | null;
+  /**
+   * Returns the identifier of the pokemon species.
+   */
+  identifier: string | null;
+  /**
+   * Returns informaiton about the pokemon species that this pokemon species evolves from.
+   */
+  evolvesFromSpecies: PokemonDetail_Pokemon_edges_node_species_evolvesFromSpecies_evolvesFromSpecies | null;
+}
+
+export interface PokemonDetail_Pokemon_edges_node_species_evolvesIntoSpecies_evolvesIntoSpecies {
+  __typename: "PokemonSpecy";
+  /**
+   * Returns the id of the pokemon species.
+   */
+  id: string | null;
+  /**
+   * Returns the identifier of the pokemon species.
+   */
+  identifier: string | null;
+}
+
+export interface PokemonDetail_Pokemon_edges_node_species_evolvesIntoSpecies {
+  __typename: "PokemonSpecy";
+  /**
+   * Returns the id of the pokemon species.
+   */
+  id: string | null;
+  /**
+   * Returns the identifier of the pokemon species.
+   */
+  identifier: string | null;
+  /**
+   * Returns an array of pokemon species that this pokemon species can evolve into.
+   */
+  evolvesIntoSpecies: (PokemonDetail_Pokemon_edges_node_species_evolvesIntoSpecies_evolvesIntoSpecies | null)[] | null;
 }
 
 export interface PokemonDetail_Pokemon_edges_node_species {
   __typename: "PokemonSpecy";
   /**
-   * Returns information about the evolution chain of this pokemon species.
+   * Returns informaiton about the pokemon species that this pokemon species evolves from.
    */
-  evolutionChain: PokemonDetail_Pokemon_edges_node_species_evolutionChain | null;
+  evolvesFromSpecies: PokemonDetail_Pokemon_edges_node_species_evolvesFromSpecies | null;
+  /**
+   * Returns an array of pokemon species that this pokemon species can evolve into.
+   */
+  evolvesIntoSpecies: (PokemonDetail_Pokemon_edges_node_species_evolvesIntoSpecies | null)[] | null;
 }
 
 export interface PokemonDetail_Pokemon_edges_node_pokemonTypes_type {

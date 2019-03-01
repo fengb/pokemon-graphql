@@ -7,7 +7,7 @@ import * as css from "../../css";
 
 const CLASSES = {
   root: style({}),
-  left: style({
+  from: style({
     position: "relative",
     display: "inline-block",
     $nest: {
@@ -16,7 +16,7 @@ const CLASSES = {
       }
     }
   }),
-  right: style({
+  into: style({
     position: "relative",
     display: "inline-block",
     $nest: {
@@ -32,22 +32,24 @@ export default function Evolution(props: { identifier: string }) {
     variables: { identifier: props.identifier }
   });
 
-  const evolution = query.extractEvolution(data);
-  if (!evolution) {
+  const from = query.extractEvolvesFrom(data);
+  if (!from) {
     return null;
   }
-  const center = findIndex(evolution, { identifier: props.identifier });
-  const left = evolution.slice(0, center);
-  const right = evolution.slice(center + 1, evolution.length);
+
+  const into = query.extractEvolvesInto(data);
+  if (!into) {
+    return null;
+  }
 
   return (
     <div className={`${css.grid.row(true)} ${CLASSES.root}`}>
-      <div className={`${css.grid.column()} ${css.text.align("right")}`}>
-        {left.map(e => (
+      <div className={css.grid.column("auto")}>
+        {from.reverse().map(e => (
           <Link
             to={`/pokemon/${e.id}`}
             key={e.identifier!}
-            className={CLASSES.left}
+            className={CLASSES.from}
           >
             {startCase(e.identifier!)}
           </Link>
@@ -56,15 +58,17 @@ export default function Evolution(props: { identifier: string }) {
       <div className={css.grid.column("auto")}>
         <h2>{startCase(props.identifier)}</h2>
       </div>
-      <div className={css.grid.column()}>
-        {right.map(e => (
-          <Link
-            to={`/pokemon/${e.id}`}
-            key={e.identifier!}
-            className={CLASSES.right}
-          >
-            {startCase(e.identifier!)}
-          </Link>
+      <div className={css.grid.column("auto")}>
+        {into.map((es, i) => (
+          <div key={i} className={CLASSES.into}>
+            {es.length === 1 ? (
+              <Link to={`/pokemon/${es[0].id}`}>
+                {startCase(es[0].identifier!)}
+              </Link>
+            ) : (
+              "..."
+            )}
+          </div>
         ))}
       </div>
     </div>
