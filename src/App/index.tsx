@@ -1,6 +1,7 @@
 import * as React from "react";
 import Apollo from "./Apollo";
 import Router, { Routes, Link } from "./Router";
+import Search from "./Search";
 import * as css from "../css";
 
 export function App() {
@@ -10,6 +11,7 @@ export function App() {
         <h1>
           <Link to="/">Pokemon!</Link>
         </h1>
+        <Search />
       </div>
       <Routes />
     </main>

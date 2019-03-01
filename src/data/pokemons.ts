@@ -1,4 +1,4 @@
-// "0" is the missing image
+// "0" == missing image
 function pokemon(identifier: string, baseurl: string = "0") {
   return {
     identifier,
@@ -6,7 +6,7 @@ function pokemon(identifier: string, baseurl: string = "0") {
   };
 }
 
-export default [
+export const POKEMON = [
   pokemon("bulbasaur", "1"),
   pokemon("ivysaur", "2"),
   pokemon("venusaur", "3"),
@@ -957,3 +957,5 @@ export default [
   pokemon("kommo-o-totem"),
   pokemon("magearna-original")
 ];
+
+export default POKEMON.map((p, i) => Object.assign(p, { id: String(i + 1) }));
