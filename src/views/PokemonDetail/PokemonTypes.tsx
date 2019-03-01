@@ -13,8 +13,8 @@ export default function PokemonTypes(props: { identifier: string }) {
 
   return (
     <div>
-      {types.map(t => (
-        <div>{t.identifier}</div>
+      {types.map((t, i) => (
+        <div key={t.identifier || i}>{t.identifier}</div>
       ))}
     </div>
   );

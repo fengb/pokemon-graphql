@@ -14,11 +14,13 @@ export function container() {
   });
 }
 
-export function row() {
+export function row(center = false) {
   return style({
     marginLeft: -HALF_GUTTER,
     marginRight: -HALF_GUTTER,
-    display: "flex"
+    display: "flex",
+    justifyContent: center ? "center" : undefined,
+    alignItems: "stretch"
   });
 }
 

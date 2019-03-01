@@ -60,7 +60,7 @@ export function extractEvolution(detail?: T.PokemonDetail) {
     return null;
   }
 
-  return chain.map(c => c.identifier!);
+  return chain;
 }
 
 export function extractStats(detail?: T.PokemonDetail) {
