@@ -39,7 +39,10 @@ export class Type<T extends TypeName> {
     }
   ) {}
 
-  attack(typeName: TypeName): number {
+  _lookup(typeName?: TypeName) {
+    if (!typeName) {
+      return 1.0;
+    }
     if (this.efficacy[2.0] && this.efficacy[2.0].includes(typeName)) {
       return 2.0;
     }
@@ -52,8 +55,12 @@ export class Type<T extends TypeName> {
     return 1.0;
   }
 
-  defense(typeName: TypeName): number {
-    return TYPES[typeName].attack(this.name);
+  attack(typeName: TypeName, secondary?: TypeName): number {
+    return this._lookup(typeName) * this._lookup(secondary);
+  }
+
+  defense(typeName: TypeName, opts: { secondary?: TypeName }): number {
+    return TYPES[typeName].attack(this.name, opts.secondary);
   }
 }
 
