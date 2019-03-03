@@ -1,6 +1,7 @@
 import { style } from "typestyle";
 import { percent } from "csx";
 import { round } from "lodash";
+import { JustifyContentProperty, AlignItemsProperty } from "csstype";
 
 const HALF_GUTTER = 8;
 
@@ -14,13 +15,19 @@ export function container() {
   });
 }
 
-export function row(center = false) {
+export function row({
+  hAlign = "initial",
+  vAlign = "stretch"
+}: {
+  hAlign?: JustifyContentProperty;
+  vAlign?: AlignItemsProperty;
+} = {}) {
   return style({
     marginLeft: -HALF_GUTTER,
     marginRight: -HALF_GUTTER,
     display: "flex",
-    justifyContent: center ? "center" : undefined,
-    alignItems: "stretch"
+    justifyContent: hAlign,
+    alignItems: vAlign
   });
 }
 

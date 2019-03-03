@@ -7,6 +7,7 @@ import * as css from "../../css";
 
 const CLASSES = {
   root: style({}),
+  current: style({}),
   from: style({
     position: "relative",
     display: "inline-block",
@@ -43,8 +44,12 @@ export default function Evolution(props: { identifier: string }) {
   }
 
   return (
-    <div className={`${css.grid.row(true)} ${CLASSES.root}`}>
-      <div className={css.grid.column("auto")}>
+    <div
+      className={`${css.grid.row({ hAlign: "center", vAlign: "baseline" })} ${
+        CLASSES.root
+      }`}
+    >
+      <div className={`${css.grid.column()} ${css.text.align("right")}`}>
         {from.reverse().map(e => (
           <Link
             to={`/pokemon/${e.id}`}
@@ -56,9 +61,9 @@ export default function Evolution(props: { identifier: string }) {
         ))}
       </div>
       <div className={css.grid.column("auto")}>
-        <h2>{startCase(props.identifier)}</h2>
+        <h2 className={CLASSES.current}>{startCase(props.identifier)}</h2>
       </div>
-      <div className={css.grid.column("auto")}>
+      <div className={css.grid.column()}>
         {into.map((es, i) => (
           <div key={i} className={CLASSES.into}>
             {es.length === 1 ? (
