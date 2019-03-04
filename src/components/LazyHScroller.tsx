@@ -38,6 +38,7 @@ export default function(props: {
     }
   }
   React.useEffect(updateDimensions, [ref.current]);
+  useEventListener(window, "resize", updateDimensions);
   useEventListener(ref.current, "scroll", updateDimensions);
   React.useEffect(() => {
     if (ref.current && props.focus != null) {
