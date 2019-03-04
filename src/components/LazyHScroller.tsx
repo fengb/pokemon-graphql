@@ -5,7 +5,8 @@ import { useEventListener } from "../helpers/hooks";
 const CLASSES = {
   root: style({
     maxWidth: "100%",
-    overflowX: "auto"
+    overflowX: "auto",
+    scrollBehavior: "smooth"
   }),
 
   scroller: style({
@@ -64,7 +65,7 @@ export default function(props: {
     }
   }
 
-  const BUFFER = (viewportWidth || 0) / 4;
+  const BUFFER = viewportWidth || 0;
   const children = props.children.map((child, i) => {
     if (Math.abs(viewportOffset(i)) > BUFFER) {
       return null;
