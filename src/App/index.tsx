@@ -8,10 +8,14 @@ export function App() {
   return (
     <main>
       <div className={css.grid.container()}>
-        <h1>
-          <Link to="/">Pokemon!</Link>
-        </h1>
-        <Search />
+        <div className={css.grid.row({ hAlign: "space-between", vAlign: "baseline"})}>
+          <h1 className={css.grid.column("auto")}>
+            <Link to="/">Pokemon!</Link>
+          </h1>
+          <div className={css.grid.column("auto")}>
+            <Search />
+          </div>
+        </div>
       </div>
       <Routes />
     </main>
